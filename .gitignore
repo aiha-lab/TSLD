@@ -1,0 +1,5 @@
+.ipynb_checkpoints
+outputs
+wandb
+__pycache__/
+scripts/script*
