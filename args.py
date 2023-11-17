@@ -217,17 +217,6 @@ class QuantizeArguments:
             "choices": [2, 4, 8, 16, 32]
         },
     )
-    quant_type: str = field(
-        default="nf4",
-        metadata={
-            "help": "Quantization data type to use. Should be one of `fp4` or `nf4`.",
-            "choices": ["nf4", "fp4", "int"]
-        },
-    )
-    quant_option: str = field(
-        default="twn",
-        metadata={"help": "options for Quantizer (PACT, TWN supported)"}
-    )
     group_size: int = field(
         default=-1,
         metadata={"help": "Quantization Group Size"}
@@ -254,33 +243,10 @@ class QuantizeArguments:
         default=0.7,
         metadata={"help":"Init value for learned scale TWN"}
     )
-
-    # LoRA Config
     full_finetune: bool = field(
         default=True,
         metadata={"help": "Finetune the entire model without adapters."}
     )
-    lora_r: int = field(
-        default=64,
-        metadata={"help": "Lora R dimension."}
-    )
-    lora_alpha: float = field(
-        default=16,
-        metadata={"help": " Lora alpha."}
-    )
-    lora_dropout: float = field(
-        default=0.0,
-        metadata={"help":"Lora dropout."}
-    )
-
-    # LoftQ
-    loftq_init: bool = field(
-        default=False,
-    )
-    num_iter: int = field(
-        default=0,
-    )
-
     # KD args
     kd_qat_full: bool = field(
         default=False,

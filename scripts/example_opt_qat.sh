@@ -11,5 +11,8 @@ ft_name=fullFT_${dataset}_epoch_${epoch}_FP_lr_${lr}
 # QAT with KD (initialized with Fine-Tuned FP model)
 lr=1E-4
 epoch=30
-kd_option=tsld # [gt, logit, l2l, logit_gt, tsld]
+
+kd_option=$3 # [gt, logit, l2l, logit_gt, tsld]
 bash scripts/ft_qat/run_qat_kd_ptb.sh $1 ${model_size} ${ft_name} ${lr} ${epoch} ${kd_option}
+
+ 

@@ -26,7 +26,6 @@ save_model_weight=true
 
 # Quantization config
 quantizer=None
-quant_type=int
 n_bits_w=16
 
 full_finetune=true
@@ -42,4 +41,4 @@ CUDA_VISIBLE_DEVICES=$1 python run_qclm_full.py \
     --evaluation_strategy $evaluation_strategy --save_strategy $save_strategy --block_size 512  --learning_rate $learning_rate --save_model_weight $save_model_weight \
     --do_train --bf16 --torch_dtype $torch_dtype --low_cpu_mem_usage True --output_dir outputs/ptb/qat_kd/${model_name_sub}/$output_dir --overwrite_output_dir \
     --full_finetune $full_finetune --num_train_epochs $num_train_epochs --track_eval_ppl $track_eval_ppl \
-    --quantizer $quantizer --quant_type $quant_type --n_bits_w $n_bits_w 
+    --quantizer $quantizer --n_bits_w $n_bits_w 
