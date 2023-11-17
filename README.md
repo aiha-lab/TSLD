@@ -6,3 +6,5 @@
 This is the implementation for the paper [Token-Scaled Logit Distillation for Ternary Weight Generative Language Models](https://arxiv.org/abs/2308.06744) 🤗
 
 Full release is coming soon. Stay tuned for updates! 🚀
+
+![overview](figures/overview.png)
