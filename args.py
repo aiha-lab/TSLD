@@ -206,8 +206,8 @@ class QuantizeArguments:
     quantizer: str = field(
         default="fake",
         metadata={
-            "help": "options for QLoRA Quantizer (bitsandbytes, GPTQ)",
-            "choices": ["bitsandbytes", "fake", "None", "gptq"]
+            "help": "options for Quantizer",
+            "choices": ["fake", "None", "gptq"]
         },
     )
     n_bits_w: int = field(

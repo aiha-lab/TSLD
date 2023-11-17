@@ -479,52 +479,6 @@ class TwnQuantizer(torch.autograd.Function):
         # grad_input[input.le(clip_val[0])] = 0
         return grad_input, None, None, None, None
 
-
-from peft.tuners.lora import Linear as Loralinear
-
-def transpose(weight, fan_in_fan_out):
-    return weight.T if fan_in_fan_out else weight
-
-class QuantizeLoraLinear(Loralinear):
-    def __init__(self, *kwargs, args):
-        super(QuantizeLoraLinear, self).__init__(*kwargs)
-        
-        self.quant_args = args
-        if self.quant_args.n_bits_w == 4:
-            self.quantizer = AsymWeightQuantizer
-        if self.quant_args.n_bits_w == 2:
-                self.quantizer = TwnQuantizer
-
-    def forward(self, x: torch.Tensor):
-        previous_dtype = x.dtype
-        # if self.active_adapter not in self.lora_A.keys():
-        #     return F.linear(x, transpose(self.weight, self.fan_in_fan_out), bias=self.bias)
-        # if self.disable_adapters:
-        #     if self.r[self.active_adapter] > 0 and self.merged:
-        #         self.unmerge()
-        #     result = F.linear(x, transpose(self.weight, self.fan_in_fan_out), bias=self.bias)
-        # elif self.r[self.active_adapter] > 0 and not self.merged:
-        
-        if not self.quant_args.kd_flag:
-            # PEQAT W_L1L2 = W_q + L1L2
-            weight_L1L2 = self.weight + (self.lora_B.default.weight @ self.lora_A.default.weight)
-            # Quantize Q(W_L1L2)
-            qweight = self.quantizer.apply(weight_L1L2, self.quant_args)
-            # Linear Operation
-            result = F.linear(x, qweight, bias=self.bias)
-        # KD teacher adapter Inference
-        else:
-            # PEQAT W_L1L2 = W_q + L1L2
-            weight_L1L2 = self.weight + (self.lora_B.default.weight @ self.lora_A.default.weight)
-            # weight_L1L2 = self.weight + self.qerr
-            # Linear Operation
-            result = F.linear(x, weight_L1L2, bias=self.bias)
-        
-        result = result.to(previous_dtype)
-        
-
-        return result
-
 class QuantizeLinear(nn.Linear):
     def __init__(self,  *kargs,bias=True, args=None, is_fc2=None):
         super(QuantizeLinear, self).__init__(*kargs,bias=True)

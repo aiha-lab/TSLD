@@ -43,7 +43,6 @@ from transformers import (
     MODEL_FOR_CAUSAL_LM_MAPPING,
     AutoConfig,
     AutoModelForCausalLM,
-    BitsAndBytesConfig,
     AutoTokenizer,
     HfArgumentParser,
     Trainer,
