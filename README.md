@@ -5,7 +5,7 @@
 
 This repository contains the implementation for the paper [Token-Scaled Logit Distillation for Ternary Weight Generative Language Models](https://arxiv.org/abs/2308.06744) 🤗
 
-**TL;DR** Investgate the unexplored challenges of **Ternary QAT on GLMs** and propose a **innovative KD method** to overcome it
+**TL;DR** Investigate the unexplored challenges of Ternary QAT on GLMs and propose an innovative token-scaled KD method to overcome it.
 
 ![overview](figures/overview.png)
 *GLM images are from https://github.com/Beomi/KoAlpaca*
@@ -29,18 +29,18 @@ docker pull minsoo2333/llm-ft-ms:latest
 
 ### Quantization Arg Options (args.py)
 - Loss options for QAT-KD.
-   - **gt**: grount-truth(GT) loss only
-   - **logit**: logit distillation only
-   - **l2l**: layer-to-layer distillation (logit + attention outputs + layer outputs)
-   - **logit_gt**: logit distillation + gt loss
-   - **tsld**: token-scaled logit distillation
+   - `gt`: grount-truth(GT) loss only
+   - `logit`: logit distillation only
+   - `l2l`: layer-to-layer distillation (logit + attention outputs + layer outputs)
+   - `logit_gt`: logit distillation + gt loss
+   - `tsld`: token-scaled logit distillation
 - TSLD
-   - **kd_tsld_temp**: temperature value for softmax function with token-scaling in TSLD. (default: 10)
+   - `kd_tsld_temp`: temperature value for softmax function with token-scaling in TSLD. (default: 10)
 - Quantization
-   - **learned_scale**: option for 2-bit quantizer - true: Pact+(QuantGPT), false: TWN - default
-   - **per_tensor**: option for quantization granurality - true: per-tensor, false: per-channel
+   - `learned_scale`: option for 2-bit quantizer - true: Pact+(QuantGPT), false: TWN - default
+   - `per_tensor`: option for quantization granurality - true: per-tensor, false: per-channel
 - Training Settings
-   - **save_model_weight**: whether save QAT model (save_model_qweight: whether save quantized weight or FP weight to quantize)
+   - `save_model_weight`: whether save QAT model (save_model_qweight: whether save quantized weight or FP weight to quantize)
 
      
 (Note: For L2L distillation, modifications are needed for the model to return attention score instead of attention weights in the Transformers repository.)
