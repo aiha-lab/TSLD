@@ -40,7 +40,7 @@ docker pull minsoo2333/llm-ft-ms:latest
    - `learned_scale`: option for 2-bit quantizer - true: Pact+(QuantGPT), false: TWN - default
    - `per_tensor`: option for quantization granurality - true: per-tensor, false: per-channel
 - Training Settings
-   - `save_model_weight`: whether save QAT model (save_model_qweight: whether save quantized weight or FP weight to quantize)
+   - `save_model_weight`: whether save QAT model (`save_model_qweight`: whether save quantized weight or FP weight to quantize)
 
      
 (Note: For L2L distillation, modifications are needed for the model to return attention score instead of attention weights in the Transformers repository.)
