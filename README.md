@@ -56,10 +56,15 @@ docker pull minsoo2333/llm-ft-ms:latest
 | Size       | 0.1B | 0.3B | 0.6B | 1.5B | 0.1B | 1.3B | 2.7B | 6.7B | 1.3B | 7B |
 | LR (FP)  | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 5e-5     | 5e-5     | 1e-4         | 5e-5     |
 | Epoch (FP)          | 3        | 3        | 3        | 3        | 3        | 3        | 3        | 3        | 3            | 1        |
-| LR (QAT) | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 5e-5     | 1e-4         | 7e-5     |
+| LR (QAT) | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 1e-4     | 5e-5     | 5e-5     | 1e-4         | 7e-5     |
 | Epoch (QAT)         | 90       | 60       | 30       | 30       | 90       | 30       | 30       | 10       | 30           | 5        |
 
 - For the softmax function in the TSLD implementation, we use a temperature value of 10.
+
+### Notes
+- To more accurately reproduce the QAT-KD results from the paper, it is recommended to disable the bfloat16 (Accelerator) training option in the Huggingface Trainer API. This can be achieved by omitting the `--bf16` and `--torch_dtype` in the scripts.
+- Depending on the version of the Transformer package, the optimal learning rate value for QAT may vary. For this project, version 4.34.0 was used.
+- Update planned for the QAT script related to CSQA fine-tuning. (TODO)
 
 ## Reference
 
