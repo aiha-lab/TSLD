@@ -5,7 +5,7 @@
 
 This repository contains the implementation for the paper [Token-Scaled Logit Distillation for Ternary Weight Generative Language Models](https://arxiv.org/abs/2308.06744) 🤗
 
-**TL;DR** Investigate the unexplored challenges of Ternary QAT on GLMs and propose an innovative KD method to overcome it.
+**TL;DR**: Investigate the unexplored challenges of Ternary QAT on GLMs and propose an innovative KD method to overcome them
 
 ![overview](figures/overview.png)
 *GLM images are from https://github.com/Beomi/KoAlpaca*
