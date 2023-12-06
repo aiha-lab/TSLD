@@ -47,15 +47,16 @@ docker pull minsoo2333/llm-ft-ms:latest
 
 ### Notes
 - To more accurately reproduce the QAT-KD results from the paper, it is recommended to disable the bfloat16 (Accelerator) training option in the Huggingface Trainer API. This can be achieved by omitting the `--bf16` and `--torch_dtype` in the scripts.
-
-  PPL(↓) | BF16 QAT-KD | FP32 QAT-KD
-   -- | -- | --
-   FP16 | 12.34 | 12.34
-   W2A16 Logit | 15.09 | 13.58
-   W2A16 Logit + GT | 15.02 | 14.20
-   W2A16 TSLD | **14.81** | **13.24**
+   - The comparison results of BF16 and FP32 training are as follows.
+   - Experiments were conducted on an A100-40GB GPU using Transforms version 4.35.2.
    
-- Depending on the version of the Transformer package, the optimal learning rate value for QAT may vary. For this project, version 4.34.0 was used.
+     | OPT-1.3B PPL(↓) | BF16 QAT-KD | FP32 QAT-KD |
+     |-----------------|-------------|-------------|
+     | FP16            | 12.34       | 12.34       |
+     | W2A16 Logit     | 15.09       | 13.58       |
+     | W2A16 Logit + GT| 15.02       | 14.20       |
+     | W2A16 TSLD      | **14.81**   | **13.24**   |
+
 - Update planned for the QAT script related to CSQA fine-tuning. (TODO)
 
 ### Hyper-Parameter
