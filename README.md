@@ -45,6 +45,18 @@ docker pull minsoo2333/llm-ft-ms:latest
      
 (Note: For L2L distillation, modifications are needed for the model to return attention score instead of attention weights in the Transformers repository.)
 
+### Notes
+- To more accurately reproduce the QAT-KD results from the paper, it is recommended to disable the bfloat16 (Accelerator) training option in the Huggingface Trainer API. This can be achieved by omitting the `--bf16` and `--torch_dtype` in the scripts.
+
+  PPL(↓) | BF16 QAT-KD | FP32 QAT-KD
+   -- | -- | --
+   FP16 | 12.34 | 12.34
+   W2A16 Logit | 15.09 | 13.58
+   W2A16 Logit + GT | 15.02 | 14.20
+   W2A16 TSLD | **14.81** | **13.24**
+   
+- Depending on the version of the Transformer package, the optimal learning rate value for QAT may vary. For this project, version 4.34.0 was used.
+- Update planned for the QAT script related to CSQA fine-tuning. (TODO)
 
 ### Hyper-Parameter
 
@@ -60,11 +72,6 @@ docker pull minsoo2333/llm-ft-ms:latest
 | Epoch (QAT)         | 90       | 60       | 30       | 30       | 90       | 30       | 30       | 10       | 30           | 5        |
 
 - For the softmax function in the TSLD implementation, we use a temperature value of 10.
-
-### Notes
-- To more accurately reproduce the QAT-KD results from the paper, it is recommended to disable the bfloat16 (Accelerator) training option in the Huggingface Trainer API. This can be achieved by omitting the `--bf16` and `--torch_dtype` in the scripts.
-- Depending on the version of the Transformer package, the optimal learning rate value for QAT may vary. For this project, version 4.34.0 was used.
-- Update planned for the QAT script related to CSQA fine-tuning. (TODO)
 
 ## Reference
 
